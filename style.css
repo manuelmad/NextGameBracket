@@ -606,3 +606,13 @@ button.secondary {
 ::-webkit-scrollbar-thumb:hover {
     background: var(--text-muted);
 }
+
+footer {
+    text-align: center;
+    padding: var(--spacing-xl) var(--spacing-md);
+    margin-top: var(--spacing-xl);
+    border-top: 1px solid var(--border-soft);
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    font-family: var(--font-display);
+}
