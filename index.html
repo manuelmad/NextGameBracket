@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NextGameBracket | EmWins</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Outfit:wght@700;800;900&family=JetBrains+Mono:wght@700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <header>
+        <div class="logo">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"
+                stroke-linecap="round" stroke-linejoin="round">
+                <polygon points="5 3 19 12 5 21 5 3"></polygon>
+            </svg>
+            <span>EmWins</span> / NextGameBracket
+        </div>
+        <div class="header-actions">
+            <button id="save-btn">Save data</button>
+            <button id="show-last-btn" class="secondary">Load data</button>
+        </div>
+    </header>
+    <div class="app-container">
+
+
+        <!-- Sidebar: Game Pool -->
+        <aside class="panel game-pool">
+            <div class="panel-header">
+                <h3>Games List</h3>
+                <span id="game-count" class="text-muted">0</span>
+            </div>
+            <div class="input-group">
+                <input type="text" id="game-input" placeholder="Game's title..." aria-label="Nombre del juego">
+                <button id="add-game-btn">Add to list</button>
+            </div>
+            <div id="game-list" class="game-list">
+                <!-- Games will be injected here -->
+            </div>
+        </aside>
+
+        <!-- Main Content: VS & Bracket -->
+        <main class="main-stage">
+            <!-- VS Section -->
+            <section class="panel vs-stage">
+                <div class="panel-header">
+                    <h3>Battle Stage</h3>
+                    <div class="timer-config">
+                        <input type="number" id="timer-config-input" value="30" min="5" max="300" style="width: 70px;">
+                        <span class="text-secondary">sec.</span>
+                    </div>
+                </div>
+                <div class="vs-section">
+                    <div id="vs-slot-1" class="vs-slot" data-slot="1">
+                        <span class="text-muted">Drag here</span>
+                    </div>
+
+                    <div class="timer-controls">
+                        <div id="timer-display" class="timer-display">30</div>
+                        <div class="vs-divider">VS.</div>
+                        <button id="start-timer-btn">Start countdown</button>
+                    </div>
+
+                    <div id="vs-slot-2" class="vs-slot" data-slot="2">
+                        <span class="text-muted">Drag here</span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Bracket Section -->
+            <section class="panel bracket-arena">
+                <div class="panel-header">
+                    <h3>Grand Arena</h3>
+                    <div class="bracket-config">
+                        <select id="bracket-size-select">
+                            <option value="4">Bracket of 4</option>
+                            <option value="8" selected>Bracket of 8</option>
+                            <option value="16">Bracket of 16</option>
+                        </select>
+                    </div>
+                </div>
+                <div id="bracket-render" class="bracket-container">
+                    <!-- Bracket will be dynamically generated -->
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Victory Overlay -->
+    <div id="victory-overlay">
+        <div class="victory-card">
+            <h1 class="glow-text">🎉 ¡WINNER! 🎉</h1>
+            <h1 class="glow-text">🎉 ¡EmWins Next Game! 🎉</h1>
+            <div id="winner-name-display"
+                style="font-size: 3rem; margin: var(--spacing-md) 0; color: var(--accent-winning);"></div>
+            <button onclick="document.getElementById('victory-overlay').style.display='none'">Close</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
