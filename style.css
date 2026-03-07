@@ -141,9 +141,15 @@ header {
         max-width: 280px;
     }
 
-    .timer-controls,
-    #start-timer-btn {
-        width: 100px;
+    .timer-buttons {
+        display: flex;
+        flex-direction: column;
+        gap: var(--spacing-xs);
+        width: 100%;
+    }
+
+    .timer-buttons button {
+        width: 100%;
     }
 }
 
@@ -370,6 +376,12 @@ button.secondary {
     align-items: center;
     gap: var(--spacing-sm);
     /* min-width: 150px; */
+}
+
+.timer-buttons {
+    display: flex;
+    gap: var(--spacing-sm);
+    justify-content: center;
 }
 
 .timer-display {

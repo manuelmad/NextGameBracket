@@ -52,7 +52,7 @@
                 <div class="panel-header">
                     <h3>Battle Stage</h3>
                     <div class="timer-config">
-                        <input type="number" id="timer-config-input" value="30" min="5" max="300" style="width: 70px;">
+                        <input type="number" id="timer-config-input" value="30" min="5" max="300" style="width: 80px;">
                         <span class="text-secondary">sec.</span>
                     </div>
                 </div>
@@ -64,7 +64,11 @@
                     <div class="timer-controls">
                         <div id="timer-display" class="timer-display">30</div>
                         <div class="vs-divider">VS.</div>
-                        <button id="start-timer-btn">Start countdown</button>
+                        <div class="timer-buttons">
+                            <button id="start-timer-btn">Start</button>
+                            <button id="pause-timer-btn" class="secondary" disabled>Pause</button>
+                            <button id="reset-timer-btn" class="secondary">Restart</button>
+                        </div>
                     </div>
 
                     <div id="vs-slot-2" class="vs-slot" data-slot="2">
@@ -108,7 +112,7 @@
         <p class="italic-p">Web Developer</p>
         <p class="italic-p">Math and Physics Teacher</p>
         <p class="italic-p">Petroleum Engineer</p>
-        <a href="https://manuelmad.vercel.app" target="_blank">https://manuelmad.vercel.app</a>
+        <a href="https://manuelmad.vercel.app" target="_blank">manuelmad.vercel.app</a>
     </footer>
 
     <script src="script.js"></script>

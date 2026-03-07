@@ -139,26 +139,35 @@ function renderVsSlots() {
 }
 
 // --- Timer Logic ---
+const pauseTimerBtn = document.getElementById('pause-timer-btn');
+const resetTimerBtn = document.getElementById('reset-timer-btn');
+
 timerConfigInput.addEventListener('input', () => {
-    timerDisplay.innerText = timerConfigInput.value;
+    if (!timerInterval && !isPaused) {
+        timerDisplay.innerText = timerConfigInput.value;
+    }
 });
 
 let timerInterval = null;
+let timeLeft = 0;
+let isPaused = false;
 function startTimer() {
     if (timerInterval) return;
 
-    let timeLeft = parseInt(timerConfigInput.value);
-    if (isNaN(timeLeft) || timeLeft < 1) timeLeft = 30;
+    if (!isPaused) {
+        timeLeft = parseInt(timerConfigInput.value);
+        if (isNaN(timeLeft) || timeLeft < 1) timeLeft = 30;
+    }
 
+    isPaused = false;
     timerDisplay.innerText = timeLeft;
     startTimerBtn.disabled = true;
     startTimerBtn.innerText = 'BATTLE!';
+    pauseTimerBtn.disabled = false;
+    pauseTimerBtn.innerText = 'Pause';
 
     // Lock interaction
-    document.querySelectorAll('.game-item, .game-card, .slot, .remove-vs, .delete-btn').forEach(el => {
-        el.classList.add('disabled');
-        if (el.setAttribute) el.setAttribute('draggable', 'false');
-    });
+    toggleInteractions(false);
 
     timerInterval = setInterval(() => {
         timeLeft--;
@@ -169,23 +178,62 @@ function startTimer() {
         }
 
         if (timeLeft <= 0) {
-            clearInterval(timerInterval);
-            timerInterval = null;
-            timerDisplay.classList.remove('danger');
-            startTimerBtn.disabled = false;
-            startTimerBtn.innerText = 'Iniciar Encuesta';
-
-            // Unlock interaction
-            document.querySelectorAll('.game-item, .game-card, .slot, .remove-vs, .delete-btn').forEach(el => {
-                el.classList.remove('disabled');
-                if (el.setAttribute) el.setAttribute('draggable', 'true');
-            });
-
-            // Subtle flash effect or notification
-            timerDisplay.style.color = 'var(--accent-success)';
-            setTimeout(() => timerDisplay.style.color = '', 2000);
+            finishTimer();
         }
     }, 1000);
+}
+
+function pauseTimer() {
+    if (!timerInterval) return;
+    clearInterval(timerInterval);
+    timerInterval = null;
+    isPaused = true;
+    startTimerBtn.disabled = false;
+    startTimerBtn.innerText = 'Resume';
+    pauseTimerBtn.disabled = true;
+}
+
+function resetTimer() {
+    clearInterval(timerInterval);
+    timerInterval = null;
+    isPaused = false;
+    timeLeft = parseInt(timerConfigInput.value);
+    timerDisplay.innerText = timeLeft;
+    timerDisplay.classList.remove('danger');
+    startTimerBtn.disabled = false;
+    startTimerBtn.innerText = 'Start';
+    pauseTimerBtn.disabled = true;
+    pauseTimerBtn.innerText = 'Pause';
+    toggleInteractions(true);
+}
+
+function finishTimer() {
+    clearInterval(timerInterval);
+    timerInterval = null;
+    isPaused = false;
+    timerDisplay.classList.remove('danger');
+    startTimerBtn.disabled = false;
+    startTimerBtn.innerText = 'Start';
+    pauseTimerBtn.disabled = true;
+
+    // Unlock interaction
+    toggleInteractions(true);
+
+    // Subtle flash effect or notification
+    timerDisplay.style.color = 'var(--accent-success)';
+    setTimeout(() => timerDisplay.style.color = '', 2000);
+}
+
+function toggleInteractions(enable) {
+    document.querySelectorAll('.game-item, .game-card, .slot, .remove-vs, .delete-btn').forEach(el => {
+        if (enable) {
+            el.classList.remove('disabled');
+            if (el.setAttribute) el.setAttribute('draggable', 'true');
+        } else {
+            el.classList.add('disabled');
+            if (el.setAttribute) el.setAttribute('draggable', 'false');
+        }
+    });
 }
 
 // --- Bracket Generation ---
@@ -364,6 +412,8 @@ saveBtn.addEventListener('click', () => {
 addGameBtn.addEventListener('click', addGame);
 gameInput.addEventListener('keypress', (e) => e.key === 'Enter' && addGame());
 startTimerBtn.addEventListener('click', startTimer);
+pauseTimerBtn.addEventListener('click', pauseTimer);
+resetTimerBtn.addEventListener('click', resetTimer);
 bracketSelect.addEventListener('change', renderBracket);
 showLastBtn.addEventListener('click', loadFromLocal);
 
