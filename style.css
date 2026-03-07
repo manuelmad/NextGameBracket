@@ -634,3 +634,13 @@ footer {
     font-size: 0.9rem;
     font-family: var(--font-display);
 }
+
+.italic-p {
+    font-style: italic;
+    color: var(--border-medium);
+}
+
+footer a {
+    color: var(--accent-secondary);
+    text-decoration: none;
+}
