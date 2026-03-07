@@ -422,6 +422,63 @@ button.secondary {
     margin-bottom: var(--spacing-lg);
 }
 
+/* Instructions Panel */
+.instructions-panel {
+    border-color: var(--accent-secondary);
+    background: linear-gradient(to bottom, var(--bg-surface), var(--bg-surface-elevated));
+}
+
+.instructions-content {
+    padding: var(--spacing-lg);
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-lg);
+    max-width: 900px;
+}
+
+.instruction-group h4 {
+    color: var(--accent-secondary);
+    margin-bottom: var(--spacing-sm);
+    font-size: 1.1rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.instruction-group ul {
+    list-style: none;
+    padding-left: 0;
+}
+
+.instruction-group li {
+    position: relative;
+    padding-left: var(--spacing-lg);
+    margin-bottom: var(--spacing-sm);
+    color: var(--text-secondary);
+}
+
+.instruction-group li::before {
+    content: "•";
+    color: var(--accent-primary);
+    position: absolute;
+    left: 0;
+    font-weight: bold;
+}
+
+.instruction-note {
+    background: rgba(255, 215, 0, 0.05);
+    border-left: 4px solid var(--accent-winning);
+    padding: var(--spacing-md);
+    border-radius: var(--radius-sm);
+}
+
+.instruction-note p {
+    color: var(--text-primary);
+}
+
+.instruction-note strong {
+    color: var(--accent-winning);
+}
+
 .bracket-container {
     display: flex;
     justify-content: flex-start;

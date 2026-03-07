@@ -23,6 +23,7 @@
             <span>EmWins</span> / NextGameBracket
         </div>
         <div class="header-actions">
+            <button id="toggle-instructions-btn" class="secondary">How to Use</button>
             <button id="save-btn">Save data</button>
             <button id="show-last-btn" class="secondary">Load data</button>
         </div>
@@ -91,6 +92,65 @@
                 </div>
                 <div id="bracket-render" class="bracket-container">
                     <!-- Bracket will be dynamically generated -->
+                </div>
+            </section>
+
+            <!-- Instructions Section -->
+            <section id="instructions-section" class="panel instructions-panel hidden">
+                <div class="panel-header">
+                    <h3>How to Use NextGameBracket</h3>
+                    <button id="close-instructions-btn" class="icon-btn">✕</button>
+                </div>
+                <div class="instructions-content">
+                    <div class="instruction-group">
+                        <h4>Game List</h4>
+                        <ul>
+                            <li>Enter a game title and press the <strong>“Add to list”</strong> button. Repeat this
+                                process for all titles you wish to add.</li>
+                            <li>Each title on the list can be edited, by clicking on its name, or deleted, by clicking
+                                the
+                                corresponding <strong>“x”</strong>.</li>
+                        </ul>
+                    </div>
+
+                    <div class="instruction-group">
+                        <h4>Battle Stage</h4>
+                        <ul>
+                            <li>Once the game list is complete, drag any two games from the Game List (or Grand Arena)
+                                to
+                                their respective <strong>VS. slots</strong> to pit them against each other.</li>
+                            <li>Here, you can replace any title by dragging another onto its slot, or delete it by
+                                clicking the corresponding <strong>“x”</strong>.</li>
+                            <li>Set the poll duration in the web app. Start the poll in your YouTube live stream chat so
+                                your audience can
+                                begin participating.</li>
+                            <li>Immediately, press the <strong>“Start”</strong> button in the web app to begin the
+                                countdown (you can <strong>“Pause”</strong> and <strong>“Restart”</strong> the
+                                countdown,
+                                if needed) so your audience can see how much time is left to vote.</li>
+                            <li>When the timer reaches 0, check the poll results in your YouTube live stream chat and
+                                announce the winner.</li>
+                        </ul>
+                    </div>
+
+                    <div class="instruction-group">
+                        <h4>Grand Arena</h4>
+                        <ul>
+                            <li>Select the bracket type based on the number of titles participating (4, 8, or 16).</li>
+                            <li>Drag any title from the Game List or Battle Stage to any bracket slot. Here, you can
+                                replace any title by dragging another onto its slot, or delete it by clicking the
+                                corresponding <strong>"x"</strong>. You can also drag a title from one slot to another
+                                empty slot to copy it.</li>
+                            <li>Match the titles you want to see in the polls so the winners advance through the
+                                bracket.</li>
+                            <li>Finally, drag the champion title onto the <strong>crown slot</strong>.</li>
+                        </ul>
+                    </div>
+
+                    <div class="instruction-note">
+                        <p><strong>NOTE:</strong> This web app has save and load buttons to resume from where you left
+                            off if your browser closes or refreshes.</p>
+                    </div>
                 </div>
             </section>
         </main>

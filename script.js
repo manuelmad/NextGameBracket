@@ -417,5 +417,21 @@ resetTimerBtn.addEventListener('click', resetTimer);
 bracketSelect.addEventListener('change', renderBracket);
 showLastBtn.addEventListener('click', loadFromLocal);
 
+// Instructions Toggle
+const toggleInstructionsBtn = document.getElementById('toggle-instructions-btn');
+const closeInstructionsBtn = document.getElementById('close-instructions-btn');
+const instructionsSection = document.getElementById('instructions-section');
+
+toggleInstructionsBtn.addEventListener('click', () => {
+    instructionsSection.classList.toggle('hidden');
+    if (!instructionsSection.classList.contains('hidden')) {
+        instructionsSection.scrollIntoView({ behavior: 'smooth' });
+    }
+});
+
+closeInstructionsBtn.addEventListener('click', () => {
+    instructionsSection.classList.add('hidden');
+});
+
 // Initial Load
 init();
