@@ -156,7 +156,10 @@ function startTimer() {
 
     if (!isPaused) {
         timeLeft = parseInt(timerConfigInput.value);
-        if (isNaN(timeLeft) || timeLeft < 1) timeLeft = 30;
+        if (isNaN(timeLeft) || timeLeft <= 0) {
+            alert('The timer value must be greater than zero.');
+            return;
+        }
     }
 
     isPaused = false;
