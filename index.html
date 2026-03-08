@@ -48,6 +48,23 @@
 
         <!-- Main Content: VS & Bracket -->
         <main class="main-stage">
+            <!-- Bracket Section -->
+            <section class="panel bracket-arena">
+                <div class="panel-header">
+                    <h3>Grand Arena</h3>
+                    <div class="bracket-config">
+                        <select id="bracket-size-select">
+                            <option value="4">Bracket of 4</option>
+                            <option value="8" selected>Bracket of 8</option>
+                            <option value="16">Bracket of 16</option>
+                        </select>
+                    </div>
+                </div>
+                <div id="bracket-render" class="bracket-container">
+                    <!-- Bracket will be dynamically generated -->
+                </div>
+            </section>
+
             <!-- VS Section -->
             <section class="panel vs-stage">
                 <div class="panel-header">
@@ -78,23 +95,6 @@
                 </div>
             </section>
 
-            <!-- Bracket Section -->
-            <section class="panel bracket-arena">
-                <div class="panel-header">
-                    <h3>Grand Arena</h3>
-                    <div class="bracket-config">
-                        <select id="bracket-size-select">
-                            <option value="4">Bracket of 4</option>
-                            <option value="8" selected>Bracket of 8</option>
-                            <option value="16">Bracket of 16</option>
-                        </select>
-                    </div>
-                </div>
-                <div id="bracket-render" class="bracket-container">
-                    <!-- Bracket will be dynamically generated -->
-                </div>
-            </section>
-
             <!-- Instructions Section -->
             <section id="instructions-section" class="panel instructions-panel hidden">
                 <div class="panel-header">
@@ -105,7 +105,8 @@
                     <div class="instruction-group">
                         <h4>Game List</h4>
                         <ul>
-                            <li>Enter a game title and press the <strong>“Add to list”</strong> button. Repeat this
+                            <li>Enter a game title and press the <strong>“Add to list”</strong> button (you can also
+                                press Enter key). Repeat this
                                 process for all titles you wish to add.</li>
                             <li>Each title on the list can be edited, by clicking on its name, or deleted, by clicking
                                 the
