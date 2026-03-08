@@ -435,3 +435,33 @@ closeInstructionsBtn.addEventListener('click', () => {
 
 // Initial Load
 init();
+
+// --- Sticky Hide Logic ---
+const gamePool = document.querySelector('.game-pool');
+function handleScroll() {
+    if (instructionsSection.classList.contains('hidden')) {
+        gamePool.style.opacity = '1';
+        gamePool.style.pointerEvents = 'auto';
+        return;
+    }
+
+    const poolRect = gamePool.getBoundingClientRect();
+    const instRect = instructionsSection.getBoundingClientRect();
+
+    // Hide if the top of the pool reaches or passes the top of instructions
+    if (poolRect.top >= instRect.top) {
+        gamePool.style.opacity = '0';
+        gamePool.style.pointerEvents = 'none';
+    } else {
+        gamePool.style.opacity = '1';
+        gamePool.style.pointerEvents = 'auto';
+    }
+}
+
+window.addEventListener('scroll', handleScroll);
+// Also trigger on toggle
+toggleInstructionsBtn.addEventListener('click', () => {
+    // ... existing logic ...
+    setTimeout(handleScroll, 100); // Small delay to catch position after layout shift
+});
+
