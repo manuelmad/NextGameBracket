@@ -244,6 +244,7 @@ function renderBracket() {
     bracketRender.innerHTML = '';
     const size = parseInt(bracketSelect.value);
     state.bracketSize = size;
+    bracketRender.className = `bracket-container size-${size}`;
 
     const leftSide = document.createElement('div');
     leftSide.className = 'bracket-side left';
@@ -285,13 +286,30 @@ function renderBracket() {
     // finalRound.innerHTML = '<h3>GRAND FINAL</h3>';
     finalRound.appendChild(createMatchPair('GrandFinal'));
 
+    if (bracketSelect.value === '8') {
+        centerColumn.style.marginTop = '80px';
+    } else if (bracketSelect.value === '16') {
+        centerColumn.style.marginTop = '10px';
+    }
+
     // Winner Podium (Center)
     const podium = document.createElement('div');
     podium.className = 'champion-podium';
     const finalSlot = createSlot('Final-Champion');
     finalSlot.classList.add('final-slot');
-    podium.innerHTML = '<h3>GRAND FINAL</h3>';
+    const h3 = document.createElement('h3');
+    h3.className = 'podium-title';
+    h3.innerText = 'GRAND FINAL';
+    podium.appendChild(h3);
     podium.appendChild(finalSlot);
+
+    if (bracketSelect.value === '8') {
+        h3.style.top = '-200px';
+    } else if (bracketSelect.value === '4') {
+        h3.style.top = '-240px';
+    } else if (bracketSelect.value === '16') {
+        h3.style.top = '-240px';
+    }
 
     centerColumn.appendChild(finalRound);
     centerColumn.appendChild(podium);
