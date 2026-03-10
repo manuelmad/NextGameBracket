@@ -790,6 +790,7 @@ footer {
     gap: var(--spacing-lg);
     justify-content: center;
     align-items: center;
+    position: relative;
 }
 
 .social-links a {
@@ -797,6 +798,13 @@ footer {
     align-items: center;
     justify-content: center;
     opacity: 0.6;
+}
+
+.social-links .em-cute {
+    width: 100px;
+    height: 100px;
+    position: absolute;
+    right: -100px;
 }
 
 .social-links a:hover {
