@@ -306,6 +306,27 @@ button.secondary {
     gap: var(--spacing-md);
     overflow: hidden;
     /* Main content also shouldn't spill */
+    position: relative;
+}
+
+.em-action {
+    width: 120.75px;
+    height: 196.5px;
+    position: absolute;
+    left: 150px;
+    top: 650px;
+}
+
+@media (max-width: 1200px) {
+    .em-action {
+        left: 40px
+    }
+}
+
+@media (max-width: 900px) {
+    .em-action {
+        display: none;
+    }
 }
 
 .vs-section {
