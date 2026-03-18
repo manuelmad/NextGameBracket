@@ -317,14 +317,30 @@ button.secondary {
     top: 650px;
 }
 
+.em-cheering {
+    width: 120.75px;
+    height: 196.5px;
+    position: absolute;
+    right: 150px;
+    top: 650px;
+}
+
 @media (max-width: 1200px) {
     .em-action {
         left: 40px
+    }
+
+    .em-cheering {
+        right: 40px
     }
 }
 
 @media (max-width: 900px) {
     .em-action {
+        display: none;
+    }
+
+    .em-cheering {
         display: none;
     }
 }
