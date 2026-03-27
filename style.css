@@ -104,18 +104,24 @@ h3 {
     }
 } */
 
-.game-pool {
+/* .game-pool {
     position: sticky;
     top: 5px;
     z-index: 10;
     transition: opacity 0.4s ease;
-}
+} */
 
 .game-pool,
 .vs-stage {
     max-width: 1024px;
     margin: 0 auto;
 }
+
+/* .vs-stage {
+    position: sticky;
+    bottom: 5px;
+    z-index: 10;
+} */
 
 header {
     grid-column: 1 / -1;
@@ -314,7 +320,8 @@ button.secondary {
     height: 196.5px;
     position: absolute;
     left: 150px;
-    top: 650px;
+    /* top: 650px; */
+    bottom: 55.75px;
 }
 
 .em-cheering {
@@ -322,7 +329,8 @@ button.secondary {
     height: 196.5px;
     position: absolute;
     right: 150px;
-    top: 650px;
+    /* top: 650px; */
+    bottom: 55.75px;
 }
 
 @media (max-width: 1200px) {
@@ -526,14 +534,14 @@ button.secondary {
     /* Shrink-to-fit content */
     margin: auto;
     /* Center if smaller than container */
-    gap: var(--spacing-md);
+    gap: 48px;
     padding: var(--spacing-md);
     transition: transform 0.3s ease;
 }
 
 .bracket-side {
     display: flex;
-    gap: var(--spacing-md);
+    gap: 48px;
 }
 
 .bracket-center-column {
@@ -561,7 +569,7 @@ button.secondary {
 
 /* Bracket Sizing Overrides */
 .bracket-container.size-16 .left .round:nth-child(2) .match-pair {
-    gap: 60px;
+    gap: 72px;
 }
 
 .bracket-container.size-16 .left .round:nth-child(3) .match-pair {
@@ -569,7 +577,7 @@ button.secondary {
 }
 
 .bracket-container.size-16 .right .round:nth-child(2) .match-pair {
-    gap: 60px;
+    gap: 72px;
 }
 
 .bracket-container.size-16 .right .round:first-child .match-pair {
@@ -591,11 +599,11 @@ button.secondary {
 }
 
 .bracket-container.size-8 .left .round:nth-child(2) .match-pair {
-    gap: 100px;
+    gap: 96px;
 }
 
 .bracket-container.size-8 .right .round:first-child .match-pair {
-    gap: 100px;
+    gap: 96px;
 }
 
 .bracket-container.size-8 .final-slot {
@@ -642,6 +650,78 @@ button.secondary {
     flex-direction: column;
     gap: var(--spacing-sm);
     position: relative;
+    z-index: 1;
+    /* relative stacking for pseudo-elements */
+}
+
+.match-pair .slot {
+    z-index: 2;
+    /* keep slots above lines */
+}
+
+/* Bracket Connecting Lines */
+.bracket-container {
+    --bracket-line-color: var(--border-medium);
+    --bracket-line-thickness: 2px;
+    --slot-height: 40px;
+    /* size-16 default */
+}
+
+.bracket-container.size-8 {
+    --slot-height: 48px;
+}
+
+.bracket-container.size-4 {
+    --slot-height: 60px;
+}
+
+/* Vertical Bracket Arms ('[' or ']') */
+.left .match-pair::after,
+.right .match-pair::after {
+    content: '';
+    position: absolute;
+    top: calc(var(--slot-height) / 2);
+    bottom: calc(var(--slot-height) / 2);
+    width: 16px;
+    border: var(--bracket-line-thickness) solid var(--bracket-line-color);
+    z-index: -1;
+    pointer-events: none;
+}
+
+/* Horizontal line to next round */
+.left .match-pair::before,
+.right .match-pair::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 16px;
+    height: var(--bracket-line-thickness);
+    background-color: var(--bracket-line-color);
+    z-index: -1;
+    pointer-events: none;
+}
+
+/* Left side positioning */
+.left .match-pair::after {
+    right: -16px;
+    border-left: none;
+    border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+}
+
+.left .match-pair::before {
+    right: -32px;
+}
+
+/* Right side positioning */
+.right .match-pair::after {
+    left: -16px;
+    border-right: none;
+    border-radius: var(--radius-sm) 0 0 var(--radius-sm);
+}
+
+.right .match-pair::before {
+    left: -32px;
 }
 
 .slot {

@@ -20,6 +20,7 @@ const showLastBtn = document.getElementById('show-last-btn');
 const saveBtn = document.getElementById('save-btn');
 const victoryOverlay = document.getElementById('victory-overlay');
 const winnerNameDisplay = document.getElementById('winner-name-display');
+const randomDistributeBtn = document.getElementById('random-distribute-btn');
 
 // --- Initialization ---
 function init() {
@@ -117,7 +118,7 @@ function renderVsSlots() {
 
         if (game) {
             slotEl.innerHTML = `
-                <div class="game-card" draggable="true">
+                <div class="game-card" draggable="true" title="${game.name.replace(/"/g, '&quot;')}">
                     ${game.name}
                     <button class="icon-btn remove-vs">✕</button>
                 </div>
@@ -338,6 +339,7 @@ function createSlot(id) {
     if (game) {
         slot.classList.remove('empty');
         slot.draggable = true;
+        slot.title = game.name;
         slot.innerHTML = `
             <span class="game-text">${game.name}</span>
             <div class="actions">
@@ -438,6 +440,40 @@ resetTimerBtn.addEventListener('click', resetTimer);
 bracketSelect.addEventListener('change', renderBracket);
 showLastBtn.addEventListener('click', loadFromLocal);
 
+randomDistributeBtn.addEventListener('click', () => {
+    if (state.games.length !== state.bracketSize) {
+        alert(`¡Atención! El bracket actual es de ${state.bracketSize} juegos, pero tienes ${state.games.length} en la lista. Debes tener exactamente ${state.bracketSize} juegos agregados para poder distribuirlos al azar.`);
+        return;
+    }
+
+    const outerSlots = [];
+    const count = parseInt(state.bracketSize) / 4;
+    
+    // We only have a r0 array if bracketSize >= 4. Since smallest is 4, count is at least 1.
+    for (let m = 0; m < count; m++) {
+        outerSlots.push(`L-r0-m${m}-s1`, `L-r0-m${m}-s2`);
+        outerSlots.push(`R-r0-m${m}-s1`, `R-r0-m${m}-s2`);
+    }
+
+    // Fisher-Yates shuffle algorithm
+    const shuffledGames = [...state.games];
+    for (let i = shuffledGames.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [shuffledGames[i], shuffledGames[j]] = [shuffledGames[j], shuffledGames[i]];
+    }
+
+    // Clear inner bracket slots, but preserve vs slots
+    state.bracketData = {};
+
+    outerSlots.forEach((slotId, index) => {
+        state.bracketData[slotId] = shuffledGames[index];
+    });
+
+    renderBracket();
+    // Save state after generating bracket
+    saveToLocal();
+});
+
 // Instructions Toggle
 const toggleInstructionsBtn = document.getElementById('toggle-instructions-btn');
 const closeInstructionsBtn = document.getElementById('close-instructions-btn');
@@ -448,10 +484,23 @@ toggleInstructionsBtn.addEventListener('click', () => {
     if (!instructionsSection.classList.contains('hidden')) {
         instructionsSection.scrollIntoView({ behavior: 'smooth' });
     }
+
+    // Code to make em_action and em_cheering invisible
+    const em_action = document.querySelector('.em-action');
+    const em_cheering = document.querySelector('.em-cheering');
+    em_action.style.display = 'none';
+    em_cheering.style.display = 'none';
 });
 
 closeInstructionsBtn.addEventListener('click', () => {
     instructionsSection.classList.add('hidden');
+
+    // Code to make em_action and em_cheering visible
+    const em_action = document.querySelector('.em-action');
+    const em_cheering = document.querySelector('.em-cheering');
+    em_action.style.display = 'block';
+    em_cheering.style.display = 'block';
+
 });
 
 // Initial Load
@@ -477,6 +526,7 @@ function handleScroll() {
         gamePool.style.opacity = '1';
         gamePool.style.pointerEvents = 'auto';
     }
+
 }
 
 window.addEventListener('scroll', handleScroll);
