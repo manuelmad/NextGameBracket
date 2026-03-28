@@ -378,6 +378,11 @@ function createSlot(id) {
 function showVictory(name) {
     winnerNameDisplay.innerText = name;
     victoryOverlay.style.display = 'flex';
+    const victoryVideo = document.getElementById('victory-video');
+    if (victoryVideo) {
+        victoryVideo.currentTime = 0;
+        victoryVideo.play().catch(err => console.error('Video play failed:', err));
+    }
 }
 
 // --- Drag and Drop System ---

@@ -172,9 +172,12 @@
         <div class="victory-card">
             <h1 class="glow-text">🎉 ¡WINNER! 🎉</h1>
             <h1 class="glow-text">🎉 ¡EmWins Next Game! 🎉</h1>
+            <video id="victory-video" src="./videos/Em-Celebration.mp4" loop
+                style="width: 100%; max-width: 100px; border-radius: var(--radius-md); margin: var(--spacing-md) auto; display: block; border: 2px solid var(--accent-secondary); box-shadow: var(--shadow-glow);"></video>
             <div id="winner-name-display"
                 style="font-size: 3rem; margin: var(--spacing-md) 0; color: var(--accent-winning);"></div>
-            <button onclick="document.getElementById('victory-overlay').style.display='none'">Close</button>
+            <button
+                onclick="document.getElementById('victory-overlay').style.display='none'; document.getElementById('victory-video').pause(); document.getElementById('victory-video').currentTime = 0;">Close</button>
         </div>
     </div>
 
