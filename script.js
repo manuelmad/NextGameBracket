@@ -442,13 +442,13 @@ showLastBtn.addEventListener('click', loadFromLocal);
 
 randomDistributeBtn.addEventListener('click', () => {
     if (state.games.length !== state.bracketSize) {
-        alert(`¡Atención! El bracket actual es de ${state.bracketSize} juegos, pero tienes ${state.games.length} en la lista. Debes tener exactamente ${state.bracketSize} juegos agregados para poder distribuirlos al azar.`);
+        alert(`Attention! The current bracket is for ${state.bracketSize} games, but you have ${state.games.length} on the list. You must have exactly ${state.bracketSize} games added to be able to distribute them randomly.`);
         return;
     }
 
     const outerSlots = [];
     const count = parseInt(state.bracketSize) / 4;
-    
+
     // We only have a r0 array if bracketSize >= 4. Since smallest is 4, count is at least 1.
     for (let m = 0; m < count; m++) {
         outerSlots.push(`L-r0-m${m}-s1`, `L-r0-m${m}-s2`);
