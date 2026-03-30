@@ -68,7 +68,7 @@ function addGame() {
     state.games.push(newGame);
     gameInput.value = '';
     renderGameList();
-    // No auto-save here
+    saveToLocal();
 }
 
 function renderGameList() {
@@ -88,14 +88,14 @@ function renderGameList() {
         // Inline Edit
         item.querySelector('.game-name').addEventListener('blur', (e) => {
             game.name = e.target.innerText;
-            // No auto-save here
+            saveToLocal();
         });
 
         // Delete
         item.querySelector('.delete-btn').addEventListener('click', () => {
             state.games = state.games.filter(g => g.id !== game.id);
             renderGameList();
-            // No auto-save here
+            saveToLocal();
         });
 
         // Drag Start
@@ -360,7 +360,7 @@ function createSlot(id) {
         slot.querySelector('.remove-btn').onclick = () => {
             delete state.bracketData[id];
             renderBracket();
-            // No auto-save here
+            saveToLocal();
         };
 
         // For "duplicating", we'll use a special drag behavior or just let them copy-paste?
@@ -427,7 +427,7 @@ function handleDrop(target, data) {
         const targetId = target.dataset.slotId;
         state.bracketData[targetId] = game;
         renderBracket();
-        // No auto-save here
+        saveToLocal();
     }
 }
 
