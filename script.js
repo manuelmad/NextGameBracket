@@ -16,8 +16,6 @@ const timerDisplay = document.getElementById('timer-display');
 const timerConfigInput = document.getElementById('timer-config-input');
 const bracketSelect = document.getElementById('bracket-size-select');
 const bracketRender = document.getElementById('bracket-render');
-const showLastBtn = document.getElementById('show-last-btn');
-const saveBtn = document.getElementById('save-btn');
 const clearDataBtn = document.getElementById('clear-data-btn');
 const victoryOverlay = document.getElementById('victory-overlay');
 const winnerNameDisplay = document.getElementById('winner-name-display');
@@ -25,9 +23,7 @@ const randomDistributeBtn = document.getElementById('random-distribute-btn');
 
 // --- Initialization ---
 function init() {
-    renderGameList();
-    renderBracket();
-    setupDragAndDrop();
+    loadFromLocal();
 }
 
 // --- LocalStorage Logic ---
@@ -49,10 +45,10 @@ function loadFromLocal() {
         state.vsSlots = { 1: null, 2: null }; // Reset VS on reload for simplicity
 
         bracketSelect.value = state.bracketSize;
-        renderGameList();
-        renderBracket();
-        renderVsSlots();
     }
+    renderGameList();
+    renderBracket();
+    renderVsSlots();
 }
 
 // --- Game Pool Management ---
@@ -432,19 +428,15 @@ function handleDrop(target, data) {
 }
 
 // --- Event Listeners ---
-saveBtn.addEventListener('click', () => {
-    saveToLocal();
-    const originalText = saveBtn.innerText;
-    saveBtn.innerText = 'Saved! ✓';
-    setTimeout(() => saveBtn.innerText = originalText, 2000);
-});
 addGameBtn.addEventListener('click', addGame);
 gameInput.addEventListener('keypress', (e) => e.key === 'Enter' && addGame());
 startTimerBtn.addEventListener('click', startTimer);
 pauseTimerBtn.addEventListener('click', pauseTimer);
 resetTimerBtn.addEventListener('click', resetTimer);
-bracketSelect.addEventListener('change', renderBracket);
-showLastBtn.addEventListener('click', loadFromLocal);
+bracketSelect.addEventListener('change', () => {
+    renderBracket();
+    saveToLocal();
+});
 clearDataBtn.addEventListener('click', () => {
     if (confirm('Are you sure you want to delete all saved data? This action cannot be undone.')) {
         localStorage.removeItem('emwins_bracket_data');
