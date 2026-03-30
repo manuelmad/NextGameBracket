@@ -438,8 +438,17 @@ bracketSelect.addEventListener('change', () => {
     saveToLocal();
 });
 clearDataBtn.addEventListener('click', () => {
-    if (confirm('Are you sure you want to delete all saved data? This action cannot be undone.')) {
+    if (confirm('Are you sure you want to delete all saved data? This action cannot be undone. All games in the list and in the bracket will be deleted.')) {
         localStorage.removeItem('emwins_bracket_data');
+
+        state.games = [];
+        state.bracketData = {};
+        state.vsSlots = { 1: null, 2: null };
+
+        renderGameList();
+        renderBracket();
+        renderVsSlots();
+
         const originalText = clearDataBtn.innerText;
         clearDataBtn.innerText = 'Cleared! ✓';
         setTimeout(() => clearDataBtn.innerText = originalText, 2000);
