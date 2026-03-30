@@ -18,6 +18,7 @@ const bracketSelect = document.getElementById('bracket-size-select');
 const bracketRender = document.getElementById('bracket-render');
 const showLastBtn = document.getElementById('show-last-btn');
 const saveBtn = document.getElementById('save-btn');
+const clearDataBtn = document.getElementById('clear-data-btn');
 const victoryOverlay = document.getElementById('victory-overlay');
 const winnerNameDisplay = document.getElementById('winner-name-display');
 const randomDistributeBtn = document.getElementById('random-distribute-btn');
@@ -168,7 +169,7 @@ function startTimer() {
     startTimerBtn.disabled = true;
     startTimerBtn.innerText = 'BATTLE!';
     pauseTimerBtn.disabled = false;
-    pauseTimerBtn.innerText = 'Pause';
+    //pauseTimerBtn.innerText = 'Pause';
 
     // Lock interaction
     toggleInteractions(false);
@@ -207,7 +208,7 @@ function resetTimer() {
     startTimerBtn.disabled = false;
     startTimerBtn.innerText = 'Start';
     pauseTimerBtn.disabled = true;
-    pauseTimerBtn.innerText = 'Pause';
+    //pauseTimerBtn.innerText = 'Pause';
     toggleInteractions(true);
 }
 
@@ -444,6 +445,14 @@ pauseTimerBtn.addEventListener('click', pauseTimer);
 resetTimerBtn.addEventListener('click', resetTimer);
 bracketSelect.addEventListener('change', renderBracket);
 showLastBtn.addEventListener('click', loadFromLocal);
+clearDataBtn.addEventListener('click', () => {
+    if (confirm('Are you sure you want to delete all saved data? This action cannot be undone.')) {
+        localStorage.removeItem('emwins_bracket_data');
+        const originalText = clearDataBtn.innerText;
+        clearDataBtn.innerText = 'Cleared! ✓';
+        setTimeout(() => clearDataBtn.innerText = originalText, 2000);
+    }
+});
 
 randomDistributeBtn.addEventListener('click', () => {
     if (state.games.length !== state.bracketSize) {
