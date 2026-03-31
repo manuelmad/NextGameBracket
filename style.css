@@ -899,6 +899,18 @@ button.secondary {
     background: var(--text-muted);
 }
 
+.logo-section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: var(--spacing-xl);
+}
+
+.logo-section img {
+    width: 100%;
+    max-width: 200px;
+}
+
 footer {
     display: flex;
     flex-direction: column;
