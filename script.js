@@ -455,11 +455,18 @@ clearDataBtn.addEventListener('click', () => {
     }
 });
 
-randomDistributeBtn.addEventListener('click', () => {
+randomDistributeBtn.addEventListener('click', async () => {
     if (state.games.length !== state.bracketSize) {
         alert(`Attention! The current bracket is for ${state.bracketSize} games, but you have ${state.games.length} on the list. You must have exactly ${state.bracketSize} games added to be able to distribute them randomly.`);
         return;
     }
+
+    // Disable button and selection during animation
+    randomDistributeBtn.disabled = true;
+    bracketSelect.disabled = true;
+    const originalBtnText = randomDistributeBtn.innerText;
+    randomDistributeBtn.innerText = 'Sorting...';
+
 
     const outerSlots = [];
     const count = parseInt(state.bracketSize) / 4;
@@ -477,17 +484,36 @@ randomDistributeBtn.addEventListener('click', () => {
         [shuffledGames[i], shuffledGames[j]] = [shuffledGames[j], shuffledGames[i]];
     }
 
-    // Clear inner bracket slots, but preserve vs slots
+    // Clear inner bracket slots
     state.bracketData = {};
-
-    outerSlots.forEach((slotId, index) => {
-        state.bracketData[slotId] = shuffledGames[index];
-    });
-
     renderBracket();
-    // Save state after generating bracket
+
+    // Fill slots one by one with a delay
+    for (let i = 0; i < outerSlots.length; i++) {
+        const slotId = outerSlots[i];
+        const game = shuffledGames[i];
+
+        state.bracketData[slotId] = game;
+
+        // Manually update the slot in the DOM for a smooth experience
+        const oldSlotEl = document.querySelector(`[data-slot-id="${slotId}"]`);
+        if (oldSlotEl) {
+            const newSlotEl = createSlot(slotId);
+            newSlotEl.classList.add('slot-appear');
+            oldSlotEl.replaceWith(newSlotEl);
+        }
+
+        await new Promise(resolve => setTimeout(resolve, 200));
+    }
+
+    // Re-enable button, selection and save
+    randomDistributeBtn.disabled = false;
+    bracketSelect.disabled = false;
+    randomDistributeBtn.innerText = originalBtnText;
     saveToLocal();
 });
+
+
 
 // Instructions Toggle
 const toggleInstructionsBtn = document.getElementById('toggle-instructions-btn');

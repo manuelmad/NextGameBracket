@@ -966,3 +966,27 @@ footer a {
     color: var(--accent-secondary);
     text-decoration: none;
 }
+
+/* --- Animations --- */
+@keyframes pop-in {
+    0% {
+        transform: scale(0.8);
+        opacity: 0;
+        box-shadow: 0 0 0 rgba(255, 0, 128, 0);
+    }
+    50% {
+        transform: scale(1.1);
+        box-shadow: 0 0 20px var(--accent-primary);
+    }
+    100% {
+        transform: scale(1);
+        opacity: 1;
+        box-shadow: 0 0 0 rgba(255, 0, 128, 0);
+    }
+}
+
+.slot.slot-appear {
+    animation: pop-in 0.4s ease-out forwards;
+    border-color: var(--accent-primary);
+    z-index: 10;
+}
